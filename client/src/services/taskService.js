@@ -3,7 +3,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL;
 class TaskService {
   async getAllTasks() {
     const response = await fetch(`${API_BASE_URL}/tasks`);
-
+    
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
