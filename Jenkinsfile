@@ -28,33 +28,34 @@ pipeline {
         }
 
         stage('Build Docker images') {
-            steps {
-                sh '''
-                    echo "Building backend image..."
-                    docker build -t $BACKEND_IMAGE ./server
+    steps {
+        sh '''
+            echo "Building backend image..."
+            docker build -t $BACKEND_IMAGE ./server
 
-                    echo "Building frontend image..."
-                    docker build -t $FRONTEND_IMAGE ./client --build-arg VITE_API_URL=http://localhost:5000/api
-                '''
-            }
-        }
+            echo "Building frontend image..."
+            docker build -t $FRONTEND_IMAGE ./client --build-arg VITE_API_URL=http://backend:5000/api
+        '''
+    }
+}
 
-        stage('Run docker compose') {
-            steps {
-                sh '''
-                    echo "Starting MERN app..."
-                    docker compose up -d
+stage('Run docker compose') {
+    steps {
+        sh '''
+            echo "Starting MERN app..."
+            docker compose up -d
 
-                    echo "Showing containers..."
-                    docker ps
+            echo "Showing containers..."
+            docker compose ps
 
-                    echo "=====Backend logs======="
-                    docker logs backend || true
+            echo "=====Backend logs======="
+            docker compose logs backend || true
 
-                    echo "=====Frontend logs======="
-                    docker logs frontend || true
-                '''
-            }
-        }
+            echo "=====Frontend logs======="
+            docker compose logs frontend || true
+        '''
+    }
+}
+
     }
 }
