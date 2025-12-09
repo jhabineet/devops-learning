@@ -43,7 +43,7 @@ stage('Run docker compose') {
     steps {
         sh '''
             echo "Starting MERN app..."
-            docker compose up -d
+            docker compose up -d --no-build
 
             echo "Showing containers..."
             docker compose ps
