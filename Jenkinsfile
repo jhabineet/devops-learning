@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git url: 'https://github.com/jhabineet/devops-learning.git', branch: 'master'
+                git url: 'https://github.com/jhabineet/devops-learning.git', branch: 'main'
             }
         }
 
